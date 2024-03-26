@@ -1,6 +1,5 @@
 package com.javacoding.blog.blogapplication.payloads;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -9,11 +8,9 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class UserDto {
+public class CategoryDto {
     @NotEmpty
-    private String name;
-    @Email
-    private String email;
+    private String title;
     @NotEmpty
-    private String password;
+    private String description;
 }

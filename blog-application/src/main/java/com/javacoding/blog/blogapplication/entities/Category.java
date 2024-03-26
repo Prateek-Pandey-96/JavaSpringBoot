@@ -7,19 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name = "categories")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class User {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private String email;
-    private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Integer id;
+    private String title;
+    private String description;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 }

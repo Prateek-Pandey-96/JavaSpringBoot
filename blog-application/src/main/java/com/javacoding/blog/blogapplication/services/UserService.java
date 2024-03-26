@@ -1,7 +1,6 @@
 package com.javacoding.blog.blogapplication.services;
 
 import com.javacoding.blog.blogapplication.payloads.UserDto;
-
 import java.util.List;
 
 public interface UserService {

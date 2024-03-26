@@ -4,6 +4,7 @@ import com.javacoding.blog.blogapplication.entities.User;
 import com.javacoding.blog.blogapplication.payloads.UserDto;
 import com.javacoding.blog.blogapplication.repositories.UserRepository;
 import com.javacoding.blog.blogapplication.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.javacoding.blog.blogapplication.exceptions.*;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = this.dtoToUser(userDto);
@@ -43,8 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<User> user = userRepository.findAll();
-        return user.stream().map(this::userToDto).collect(Collectors.toList());
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::userToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -55,20 +58,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private User dtoToUser(UserDto userDto){
-        return User.builder()
-                .id(userDto.getId())
-                .email(userDto.getEmail())
-                .name(userDto.getName())
-                .password(userDto.getPassword())
-                .build();
+        return modelMapper.map(userDto, User.class);
     }
 
     private UserDto userToDto(User user){
-        return UserDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .password(user.getPassword())
-                .email(user.getEmail())
-                .build();
+        return modelMapper.map(user, UserDto.class);
     }
 }
